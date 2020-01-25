@@ -1,0 +1,4 @@
+Contact: thect@protonmail.com
+Preferred-Languages: en, zh-tw
+
+Note: This project is still in development.

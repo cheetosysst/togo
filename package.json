@@ -1,0 +1,26 @@
+{
+  "name": "togo",
+  "version": "0.0.1a",
+  "description": "ToGo 是一個實驗性的縮網址服務",
+  "main": "app.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.2",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app.js debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheetosysst/togo.git"
+  },
+  "author": "Thect",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/cheetosysst/togo/issues"
+  },
+  "homepage": "https://github.com/cheetosysst/togo#readme"
+}
