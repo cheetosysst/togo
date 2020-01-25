@@ -5,11 +5,12 @@ const router 	= express.Router();
 const login 	= require('./apps/login/app.js');
 const favicon 	= require('serve-favicon');
 const redirect 	= require('./apps/redirect/app.js');
+require('dotenv').config();
 
 // Default parameters
 // Move to config file in future
-global.debug 	= false;
-const PORT		= 8080;
+global.debug 	= process.env["DEBUG"];
+const PORT		= process.env["PORT"];
 
 // Argument processing
 process.argv.forEach(function (val, index, array) {
@@ -77,16 +78,15 @@ app.use(express.static('public'));
 var server = app.listen(PORT, function () {
 
 	// Data
-	var host = server.address().address
-	var port = server.address().port
-	var ver = require('./package.json').version
+	var host 	= server.address().address
+	var version	= process.env["VERSION"]
 
 	// Unecessary but good looking welcome message
-	console.log("\x1B[37mToGo Server v_%s\x1B[0m %s\n", ver, global.debug?"Debug mode":"Normal mode");
-	if (ver[ver.length-1] == 'a') 
+	console.log("\x1B[37mToGo Server v_%s\x1B[0m %s\n", version, global.debug?"Debug mode":"Normal mode");
+	if (version[version.length-1] == 'a') 
 		console.log('[\x1B[33mWarning\x1B[0m] This is an alpha version, prepare for explosion');
 	else if (ver[ver.length-1] == 'b')
 		console.log('[\x1B[33mWarning\x1B[0m] This is an beta version, fasten your seatbelt');
-	console.log("[\x1B[34mNormal\x1B[0m] Running on http://%s:%s", host, port);
+	console.log("[\x1B[34mNormal\x1B[0m] Running on http://%s:%s", host, PORT);
 })
 

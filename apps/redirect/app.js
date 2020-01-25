@@ -1,12 +1,13 @@
 // Library
 const router		= require('express').Router();
 const MongoClient	= require('mongodb').MongoClient;
+require('dotenv').config();
 
 // Varibles and data
 // This is the url to the mongo database. Format is <username>:<password>
 // TODO Make sure the RW rule is safe
-var uri				= 'mongodb+srv://togoAppAccess:545JpJjT6UfCKpX@cluster0-vcfwv.gcp.mongodb.net/test?retryWrites=true&w=majority';
-const client 		= new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true});
+
+const client 		= new MongoClient(process.env["DB_URI"], { useNewUrlParser: true, useUnifiedTopology: true});
 var db;
 var collection;
 
@@ -21,9 +22,9 @@ var collection;
 
 		// Set database
 		// Wait for database to respond
-		db = await client.db("url_key")
+		db = await client.db(process.env['DB_REDIRECTOR_NAME']);
 
-		collection = await db.collection('url');
+		collection = await db.collection(process.env['DB_REDIRECTOR_COLLECTION']);
 		collection.find({}).toArray(function(err, docs) {
 			if (err) throw err;
 			console.log("[\x1B[34mNormal\x1B[0m] Found following");
@@ -41,19 +42,14 @@ router.get('/r/:key', async (req, res, next) => {
 
 	collection.find({'key': key}).toArray(function(err, docs) {
 		if (err) throw err;
-		console.log(docs);
-		url = docs[0].url;
-		console.log(url);;
-		res.redirect(url);
+		res.redirect(docs[0].url);
 	})
-
-	// res.end();
 })
 
 process.on('SIGINT', function () {
-	console.log("Closing database");
+	console.log("\n[\x1B[33mWarning\x1B[0m] Closing database");
 	client.close();
-	console.log("Database closed");
+	console.log("[\x1B[33mWarning\x1B[0m] Database closed");
 	process.exit(1);
 });
 
