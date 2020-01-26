@@ -1,6 +1,6 @@
 {
   "name": "togo",
-  "version": "0.0.1a",
+  "version": "0.0.2a",
   "description": "ToGo 是一個實驗性的縮網址服務",
   "main": "app.js",
   "dependencies": {
